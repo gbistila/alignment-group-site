@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Alignment Group — Strategic Consulting</title>
+  <meta name="description" content="The Alignment Group helps service businesses scale with compensation design, sales architecture, and operational systems. Founded by Gregory J. Brown and Katy." />
+  <meta property="og:title" content="The Alignment Group — Strategic Consulting" />
+  <meta property="og:description" content="Alignment turns vision into systems. We design compensation plans, sales architecture, and operational excellence for enduring growth." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b0d10" />
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --panel:#101318;
+      --elev:#121621;
+      --fg:#e8edf3;
+      --muted:#a9b4c0;
+      --accent:#7ee0d2;
+      --accent-2:#92a8ff;
+      --line: rgba(255,255,255,0.06);
+      --ok:#6be795;
+      --warn:#ffd479;
+      --err:#ff8f8f;
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+      background: radial-gradient(1200px 600px at 70% -10%, rgba(146,168,255,0.15), transparent 60%) no-repeat,
+                  radial-gradient(900px 500px at -10% 20%, rgba(126,224,210,0.12), transparent 60%) no-repeat,
+                  var(--bg);
+      color:var(--fg);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:var(--fg); text-decoration:none}
+    .wrap{max-width:1200px; margin:0 auto; padding:0 20px}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(to bottom, rgba(11,13,16,0.9), rgba(11,13,16,0.4));
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      min-height:68px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:0.2px;
+    }
+    .brand-mark{
+      width:28px; height:28px; border-radius:8px;
+      background: conic-gradient(from 140deg, var(--accent), var(--accent-2));
+      box-shadow:0 6px 18px rgba(146,168,255,0.35), inset 0 0 0 1px rgba(255,255,255,0.15);
+    }
+    nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
+    nav a{
+      padding:8px 12px; border-radius:8px; color:var(--muted);
+    }
+    nav a:hover{background:rgba(255,255,255,0.06); color:var(--fg)}
+    .cta{
+      display:flex; gap:10px; align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color:var(--fg);
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,0.18); box-shadow:var(--shadow)}
+    .btn.primary{
+      border-color:transparent;
+      background:linear-gradient(135deg, rgba(126,224,210,0.25), rgba(146,168,255,0.25));
+    }
+    .menu{display:none}
+    @media (max-width: 900px){
+      nav{display:none}
+      .menu{display:flex; align-items:center; gap:10px}
+    }
+
+    /* Mobile drawer */
+    .drawer{
+      position:fixed; inset:0; background:rgba(5,7,9,0.6);
+      backdrop-filter: blur(6px); display:none; z-index:60;
+    }
+    .drawer.open{display:block}
+    .drawer-panel{
+      position:absolute; right:0; top:0; bottom:0; width:92%; max-width:380px;
+      background:var(--panel); border-left:1px solid var(--line); padding:20px;
+      display:flex; flex-direction:column; gap:14px;
+    }
+    .drawer a{padding:12px 10px; border-radius:10px; color:var(--muted)}
+    .drawer a:hover{background:rgba(255,255,255,0.06); color:var(--fg)}
+
+    /* Hero */
+    .hero{
+      padding:80px 0 40px;
+      border-bottom:1px solid var(--line);
+      background: radial-gradient(800px 400px at 60% 10%, rgba(126,224,210,0.10), transparent 60%) no-repeat;
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:6px 10px; border-radius:999px; font-size:13px; color:var(--muted);
+      background:rgba(255,255,255,0.04); border:1px solid var(--line);
+    }
+    .h1{
+      font-size: clamp(34px, 5vw, 58px);
+      line-height:1.08; margin:16px 0 12px; font-weight:800;
+      letter-spacing:-0.3px;
+    }
+    .lead{color:var(--muted); font-size:18px; max-width:780px}
+    .hero-ctas{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
+
+    /* Sections */
+    section{padding:64px 0; border-bottom:1px solid var(--line)}
+    .grid{
+      display:grid; gap:18px; grid-template-columns: repeat(12, 1fr);
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border:1px solid var(--line); border-radius:var(--radius); padding:18px;
+    }
+    .icon{
+      width:38px; height:38px; border-radius:10px;
+      background: radial-gradient(120% 120% at 10% 10%, rgba(146,168,255,0.5), rgba(126,224,210,0.35));
+      display:grid; place-items:center; color:#0b0d10; font-weight:900;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+    }
+    h2{
+      font-size: clamp(24px, 3vw, 34px);
+      margin:0 0 14px; letter-spacing:-0.2px;
+    }
+    h3{margin:0 0 8px; font-size:20px}
+    p{margin:0 0 10px}
+
+    /* Services */
+    .svc{grid-column: span 3}
+    @media (max-width:1000px){ .svc{grid-column: span 6} }
+    @media (max-width:700px){ .svc{grid-column: span 12} }
+
+    /* Cases */
+    .case{grid-column: span 6}
+    @media (max-width:900px){ .case{grid-column: span 12} }
+    .bullets{margin:8px 0 0; padding-left:18px; color:var(--muted)}
+    .bullets li{margin:6px 0}
+
+    /* Approach */
+    .step{grid-column: span 4}
+    @media (max-width:1000px){ .step{grid-column: span 6} }
+    @media (max-width:700px){ .step{grid-column: span 12} }
+    .step .tag{
+      font-size:12px; color:var(--muted); letter-spacing:0.4px;
+      display:inline-flex; gap:8px; align-items:center;
+      border:1px solid var(--line); border-radius:999px; padding:4px 8px;
+      margin-bottom:8px;
+    }
+
+    /* Team */
+    .person{grid-column: span 6}
+    @media (max-width:900px){ .person{grid-column: span 12} }
+
+    /* Contact */
+    form{
+      display:grid; gap:12px; grid-template-columns: repeat(12, 1fr);
+    }
+    input, textarea{
+      width:100%; padding:12px 12px; border-radius:10px;
+      border:1px solid var(--line); background:rgba(255,255,255,0.03); color:var(--fg);
+      outline:none;
+    }
+    input:focus, textarea:focus{border-color:rgba(255,255,255,0.22)}
+    .row-6{grid-column: span 6}
+    .row-12{grid-column: span 12}
+    @media (max-width:700px){ .row-6{grid-column: span 12} }
+    .small{font-size:12px; color:var(--muted)}
+    .footer{
+      padding:28px 0; color:var(--muted); font-size:14px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* Reveal */
+    .reveal{opacity:0; transform: translateY(10px); transition: all .5s ease}
+    .reveal.in{opacity:1; transform: translateY(0)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>The Alignment Group</span>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#cases">Case Studies</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="cta">
+        <a class="btn" href="#contact" aria-label="Jump to contact">Let’s talk</a>
+        <div class="menu">
+          <button id="openMenu" class="btn" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false">Menu</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div class="drawer-panel">
+      <div class="brand" style="margin-bottom:6px">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <strong id="drawerTitle">The Alignment Group</strong>
+      </div>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#approach">Approach</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+      <div style="margin-top:auto">
+        <a class="btn primary" href="#contact">Book a discovery call</a>
+        <button id="closeMenu" class="btn" style="margin-top:8px">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="kicker">Established advisory for builders and operators</span>
+        <h1 class="h1">Alignment turns vision into systems — and systems into scale.</h1>
+        <p class="lead">
+          We help service businesses become enduring platforms through compensation design, strategic sales architecture,
+          and operational excellence. When incentives, culture, and execution align, momentum compounds.
+        </p>
+        <div class="hero-ctas">
+          <!-- Update the mailto to your real address -->
+          <a class="btn primary" href="mailto:hello@alignment.group?subject=Discovery%20Call%20Request">Book a discovery call</a>
+          <a class="btn" href="#services">Explore services</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <h2>Built for ethical, intelligent scale</h2>
+        <p class="lead">
+          The Alignment Group partners with founders to architect compensation plans, refine operations, and codify
+          leadership so teams perform with clarity and confidence. We engage as true partners — embedding where needed,
+          documenting what matters, and leaving you stronger than we found you.
+        </p>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="wrap">
+        <h2>Services</h2>
+        <div class="grid">
+          <article class="card svc reveal">
+            <div class="icon" aria-hidden="true">∞</div>
+            <h3>Strategic Sales Architecture</h3>
+            <p>Design scalable sales systems, territories, and playbooks that align incentives with outcomes.</p>
+          </article>
+
+          <article class="card svc reveal">
+            <div class="icon" aria-hidden="true">Σ</div>
+            <h3>Compensation Design & Incentives</h3>
+            <p>Model compensation plans that motivate sustained performance and margin discipline. Led by Katy.</p>
+          </article>
+
+          <article class="card svc reveal">
+            <div class="icon" aria-hidden="true">⚙︎</div>
+            <h3>Operational Streamlining</h3>
+            <p>Audit workflows, reduce friction, and implement data-backed improvements across the customer journey.</p>
+          </article>
+
+          <article class="card svc reveal">
+            <div class="icon" aria-hidden="true">✦</div>
+            <h3>Fractional Leadership & Culture</h3>
+            <p>Embed experienced leadership, align teams, and codify SOPs to make excellence repeatable.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases">
+      <div class="wrap">
+        <h2>Case studies</h2>
+        <div class="grid">
+          <article class="card case reveal">
+            <h3>Alpine Landscaping</h3>
+            <p><em>From seasonal swings to systemized growth.</em></p>
+            <ul class="bullets">
+              <li>Built seasonal sales playbook and pre-winter pipeline strategy.</li>
+              <li>Codified install SOPs and quality checks for consistent outcomes.</li>
+              <li>Aligned incentives across sales, ops, and field teams.</li>
+            </ul>
+          </article>
+
+          <article class="card case reveal">
+            <h3>D Fence</h3>
+            <p><em>Precision field ops and trust-first sales.</em></p>
+            <ul class="bullets">
+              <li>Developed winter installation SOP and client prep checklist.</li>
+              <li>Launched client-facing microsite and targeted outreach routes.</li>
+              <li>Designed compensation structure to reward quality and throughput.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach">
+      <div class="wrap">
+        <h2>Our approach</h2>
+        <div class="grid">
+          <article class="card step reveal">
+            <span class="tag">01 • Diagnose</span>
+            <h3>See the system</h3>
+            <p>We map incentives, workflows, and constraints to uncover where value leaks — and where alignment unlocks it.</p>
+          </article>
+          <article class="card step reveal">
+            <span class="tag">02 • Design</span>
+            <h3>Model the mechanics</h3>
+            <p>We craft compensation plans, playbooks, and operating rhythms that make the right behaviors inevitable.</p>
+          </article>
+          <article class="card step reveal">
+            <span class="tag">03 • Embed</span>
+            <h3>Make it stick</h3>
+            <p>We train teams, codify SOPs, and step in as fractional leaders until excellence is repeatable without us.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="wrap">
+        <h2>Leadership</h2>
+        <div class="grid">
+          <article class="card person reveal">
+            <h3>Gregory J. Brown — Strategic Architect</h3>
+            <p>Ecosystem builder and sales strategist focused on aligning incentives with outcomes. Known for clear
+               agreements, scalable playbooks, and trusted partnerships.</p>
+          </article>
+          <article class="card person reveal">
+            <h3>Katy — Operational Architect</h3>
+            <p>MBA-backed, analytical, and an Excel expert. A decade in HR informs her ability to streamline operations,
+               design compensation, and build healthy, high-performing teams.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <h2>Start the conversation</h2>
+        <p class="lead">Tell us where alignment will create the most leverage. We’ll respond within one business day.</p>
+
+        <!-- If you’re hosting on GitHub Pages without a backend, mailto is the simplest path. Update the email below. -->
+        <form action="mailto:hello@alignment.group" method="post" enctype="text/plain">
+          <div class="row-6">
+            <input required type="text" name="name" placeholder="Your name" aria-label="Your name" />
+          </div>
+          <div class="row-6">
+            <input required type="email" name="email" placeholder="Email" aria-label="Email" />
+          </div>
+          <div class="row-12">
+            <input type="text" name="company" placeholder="Company" aria-label="Company" />
+          </div>
+          <div class="row-12">
+            <textarea rows="6" name="message" placeholder="What problem should we solve first?" aria-label="Message"></textarea>
+          </div>
+          <div class="row-12">
+            <button class="btn primary" type="submit">Send</button>
+            <a class="btn" href="mailto:hello@alignment.group?subject=Inquiry%20from%20Website">Email us instead</a>
+            <div class="small">By reaching out, you agree to be contacted about your inquiry.</div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer">
+      <div>&copy; <span id="year"></span> The Alignment Group</div>
+      <div>Built with clarity • Operating in Utah and beyond</div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const drawer = document.getElementById('drawer');
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    openBtn?.addEventListener('click', () => {
+      drawer.classList.add('open');
+      openBtn.setAttribute('aria-expanded','true');
+    });
+    closeBtn?.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      openBtn.setAttribute('aria-expanded','false');
+    });
+    drawer?.addEventListener('click', (e) => {
+      if(e.target === drawer){ drawer.classList.remove('open'); openBtn.setAttribute('aria-expanded','false'); }
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      })
+    },{threshold:0.15});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
